@@ -33,8 +33,13 @@ Encrypt=true; TrustServerCertificate=true;
 |---|---|---|---|
 | `userAdmin` | `12345678` | Administrador | CRUD de usuarios, canciones, artistas, albumes y playlists |
 | `userNormal` | `12345678` | Usuario normal | Reproducir canciones, consultar catalogo y administrar **sus propias** playlists |
+| `username1` | `12345678` | Usuario normal | Igual que `userNormal` (su clave ya esta guardada como SHA-1) |
 
 El rol se guarda en `TBL_USER.USER_TYPE` (`0` = normal, `1` = administrador).
+
+La base entregada guarda las contrasenas de dos formas: en texto plano
+(`userAdmin`, `userNormal`) y como hash SHA-1 (`username1`). El login acepta
+**ambos formatos** para ser compatible con los datos existentes.
 
 ---
 
@@ -66,6 +71,8 @@ webapppolimusicv1_asp/
 ├── css/styles.css             # Diseno propio (paleta azul)
 ├── js/player.js               # Reproductor de audio
 ├── assets/                    # Canciones e imagenes
+├── sql/
+│   └── limpiar-duplicados.sql # Mantenimiento: quita filas duplicadas
 ├── login.asp / logout.asp / registro.asp
 ├── canciones.asp              # Pantalla principal (Song List)
 ├── albumes.asp / artistas.asp / playlists.asp
@@ -143,3 +150,108 @@ otorga permisos y verifica que el sitio responda en
 - Contrasenas nuevas almacenadas con **SHA-1** (formato que ya usaba la base
   de datos entregada). Se documenta que SHA-1 no es el algoritmo recomendado
   hoy para contrasenas; se conserva por compatibilidad con los datos existentes.
+
+---
+
+## 8. Notas tecnicas (decisiones y trampas de Classic ASP)
+
+Estas son decisiones tomadas a partir de comportamiento verificado en
+ejecucion, no de suposiciones. Se documentan porque es facil volver a
+caer en ellas.
+
+### 8.1 `web.config` NO puede declarar `<asp>`
+
+La seccion `system.webServer/asp` esta bloqueada en el servidor:
+
+```xml
+<section name="asp" overrideModeDefault="Deny" />
+```
+
+Declararla en `web.config` (incluso solo `<asp><session>`) produce
+**HTTP 501 “Error en nueva aplicacion”**. Comprobado con una matriz de
+pruebas: `<asp>`, `<asp><session>` y `<asp><limits>` dan 501, mientras que
+`<defaultDocument>`, `<staticContent>` y `<directoryBrowse>` dan 200.
+
+Por eso `web.config` solo contiene esas tres secciones, y los ajustes de ASP
+se aplican al servidor (`iisexpress.config` en desarrollo;
+`deploy-iis.ps1` con `MACHINE/WEBROOT/APPHOST` en IIS).
+
+### 8.2 Includes con `virtual=`, sin `enableParentPaths`
+
+Todos los `<!--#include ... -->` usan la forma `virtual="/ruta/desde/raiz"`.
+Motivo: la forma `file=` se resuelve segun la profundidad de anidamiento y
+obligaba a activar `enableParentPaths`, que IIS trae desactivado por
+seguridad. Con `virtual=` los includes funcionan igual desde la raiz y desde
+`/admin`, y la aplicacion mantiene `enableParentPaths="false"`.
+
+### 8.3 `DbParam` tipa por `VarType`, nunca por el contenido
+
+El helper de parametros decide el tipo ADO segun el **tipo del valor**
+(`Long` -> `adInteger`, `String` -> `adVarChar`), no segun si “parece
+numero”. Si se usa `IsNumeric()` para inferir:
+
+- La contrasena `"12345678"` viaja como entero.
+- Al comparar `PASSWORD` (varchar) contra un entero, SQL Server aplica
+  precedencia de tipos e intenta convertir la columna a `int`.
+- En la fila cuyo `PASSWORD` es un hash SHA-1, esa conversion falla:
+  `error 80040e07: Conversion failed when converting the varchar value
+  '7C222...' to data type int`.
+
+Es decir, **una contrasena numerica rompia el login de cualquier usuario con
+la clave guardada como hash**. Los valores realmente numericos llegan a la
+capa de datos como `Long` porque las paginas los normalizan con `ToLong()`.
+
+### 8.4 `IIf` en VBScript evalua TODOS sus argumentos
+
+`IIf` es una funcion, no una construccion del lenguaje, y VBScript **no**
+hace evaluacion de corto circuito: calcula los tres argumentos antes de
+entrar. Por tanto esto falla:
+
+```vbscript
+IIf(isEditing, editSong("Id"), 0)   ' editSong es Nothing si no se edita
+```
+
+al evaluar `editSong("Id")` sobre `Nothing`:
+
+```
+error 800a000d  "No coinciden los tipos"
+```
+
+Afectaba a los formularios de alta y edicion de las cinco pantallas de CRUD.
+La solucion son los helpers con evaluacion perezosa de `includes/Security.asp`:
+
+| Helper | Uso |
+|---|---|
+| `ValOr(modelo, "Clave", respaldo)` | Lee un valor sin fallar si el modelo es `Nothing` |
+| `ValOrEnc(modelo, "Clave", respaldo)` | Igual, escapando el texto para HTML |
+| `SelIf(modelo, "Clave", valorOpcion)` | Marca `selected` comparando de forma segura |
+
+### 8.5 Otros detalles de VBScript a tener presentes
+
+- **No existe `IIf` nativo** (esta en VBA, no en VBScript): se implementa en
+  `Security.asp`.
+- **Los identificadores no pueden empezar por doble guion bajo** (`__var`
+  produce “Caracter no valido”).
+- **No usar `CLng(valor & 0)`** para convertir: si el valor ya es `"1"`, la
+  concatenacion forma `"10"`. Para eso existe `ToLong(valor, respaldo)`.
+- Los `Recordset` abiertos desde un `Command` no permiten reasignar
+  `ActiveConnection`; la conexion se cierra en `RsClose` usando la que el
+  propio `Recordset` referencia.
+
+---
+
+## 9. Mantenimiento de datos
+
+El script de datos de ejemplo de `BDD_PoliMusic` se ejecuto varias veces, por
+lo que la base puede contener filas repetidas (por ejemplo 15 albumes donde
+deberia haber 5). Para dejarla consistente:
+
+```bash
+sqlcmd -S localhost -d BDD_PoliMusic -U usr_polimusic -P <clave> -C \
+       -i sql/limpiar-duplicados.sql
+```
+
+El script **conserva la primera aparicion** de cada registro y trabaja dentro
+de una transaccion. Por defecto termina en `ROLLBACK`: revise el diagnostico
+que imprime y descomente `COMMIT TRANSACTION` para aplicar los cambios.
+Haga una copia de seguridad antes de ejecutarlo.
