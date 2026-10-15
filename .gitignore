@@ -1,0 +1,17 @@
+# Build y herramientas
+bin/
+obj/
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Logs
+*.log
+logs/
+
+# Sistema operativo
+Thumbs.db
+desktop.ini
+.DS_Store

@@ -1,0 +1,259 @@
+/* =====================================================================
+   styles.css  -  Diseno original de PoliMusic
+   Paleta propia en azul (reemplaza el verde de Spotify, por preferencia
+   del docente). Layout tipo "app" : barra superior + area de contenido
+   + reproductor fijo inferior.
+   ===================================================================== */
+
+:root{
+    --blue-900:#042C53;
+    --blue-800:#0C447C;
+    --blue-700:#185FA5;
+    --blue-600:#1D4ED8;
+    --blue-500:#2563EB;
+    --blue-400:#3B82F6;
+    --blue-300:#85B7EB;
+    --blue-200:#B5D4F4;
+    --blue-100:#DBEAFE;
+    --blue-50 :#EFF6FF;
+
+    --ink-900:#0F172A;
+    --ink-700:#334155;
+    --ink-500:#64748B;
+    --ink-300:#CBD5E1;
+    --ink-100:#F1F5F9;
+    --white  :#FFFFFF;
+
+    --ok    :#0F6E56;
+    --ok-bg :#E1F5EE;
+    --warn  :#854F0B;
+    --warn-bg:#FAEEDA;
+    --err   :#A32D2D;
+    --err-bg:#FCEBEB;
+
+    --radius:12px;
+    --shadow-sm:0 1px 2px rgba(15,23,42,.06);
+    --shadow-md:0 4px 16px rgba(15,23,42,.08);
+    --topbar-h:64px;
+    --player-h:76px;
+}
+
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+    font-family:"Segoe UI",system-ui,-apple-system,Roboto,Helvetica,Arial,sans-serif;
+    background:var(--blue-50);
+    color:var(--ink-900);
+    font-size:14px;
+    line-height:1.55;
+    padding-bottom:var(--player-h);
+}
+a{color:var(--blue-700);text-decoration:none}
+a:hover{text-decoration:underline}
+h1,h2,h3{margin:0;font-weight:600;letter-spacing:-.01em}
+h1{font-size:22px}
+h2{font-size:17px}
+h3{font-size:15px}
+
+/* ---------------- Barra superior ---------------- */
+.topbar{
+    height:var(--topbar-h);
+    background:var(--blue-900);
+    color:var(--white);
+    display:flex;
+    align-items:center;
+    gap:18px;
+    padding:0 20px;
+    position:sticky;
+    top:0;
+    z-index:30;
+}
+.brand{display:flex;align-items:center;gap:9px;color:var(--white);font-weight:700;font-size:17px}
+.brand:hover{text-decoration:none}
+.brand-mark{width:30px;height:30px;display:grid;place-items:center;background:var(--blue-500);border-radius:9px;color:#fff}
+.brand-mark svg{width:19px;height:19px}
+
+.mainnav{display:flex;gap:4px;margin-left:10px}
+.mainnav a{
+    color:var(--blue-200);
+    padding:7px 13px;
+    border-radius:999px;
+    font-weight:500;
+    font-size:13.5px;
+    transition:background .15s,color .15s;
+}
+.mainnav a:hover{background:rgba(255,255,255,.10);color:#fff;text-decoration:none}
+.mainnav a.is-active{background:var(--blue-500);color:#fff}
+
+.userbox{margin-left:auto;display:flex;align-items:center;gap:11px}
+.avatar{width:36px;height:36px;border-radius:50%;object-fit:cover;border:2px solid var(--blue-500);background:var(--blue-800)}
+.userinfo{display:flex;flex-direction:column;line-height:1.2}
+.hello{font-size:11px;color:var(--blue-300)}
+.uname{font-size:13.5px;font-weight:600;color:#fff}
+.badge{font-size:10px;font-weight:600;padding:1px 7px;border-radius:999px;margin-top:2px;width:max-content;text-transform:uppercase;letter-spacing:.03em}
+.badge-admin{background:var(--blue-500);color:#fff}
+.badge-user{background:var(--blue-800);color:var(--blue-200)}
+
+.btn-logout{
+    display:flex;align-items:center;gap:6px;
+    background:rgba(255,255,255,.10);
+    border:1px solid rgba(255,255,255,.22);
+    color:#fff;padding:7px 13px;border-radius:999px;
+    font-size:13px;font-weight:500;cursor:pointer;
+    transition:background .15s;
+}
+.btn-logout:hover{background:rgba(255,255,255,.20);text-decoration:none}
+.btn-logout svg{width:15px;height:15px}
+
+/* ---------------- Contenido ---------------- */
+.page{max-width:1180px;margin:0 auto;padding:24px 20px 40px}
+.page-head{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:18px;flex-wrap:wrap}
+.page-sub{color:var(--ink-500);font-size:13.5px;margin-top:3px}
+
+.card{
+    background:var(--white);
+    border:1px solid var(--ink-300);
+    border-radius:var(--radius);
+    box-shadow:var(--shadow-sm);
+    padding:18px;
+    margin-bottom:18px;
+}
+
+/* ---------------- Tabla ---------------- */
+.table-wrap{overflow-x:auto;border-radius:var(--radius);border:1px solid var(--ink-300);background:#fff}
+table.data{width:100%;border-collapse:collapse;font-size:13.5px}
+table.data thead th{
+    background:var(--blue-900);color:#fff;text-align:left;
+    padding:11px 14px;font-weight:600;font-size:12.5px;
+    text-transform:uppercase;letter-spacing:.04em;white-space:nowrap;
+}
+table.data tbody td{padding:11px 14px;border-top:1px solid var(--ink-100);vertical-align:middle}
+table.data tbody tr:nth-child(even){background:var(--blue-50)}
+table.data tbody tr:hover{background:var(--blue-100)}
+table.data tbody tr.is-playing{background:var(--blue-100);box-shadow:inset 3px 0 0 var(--blue-500)}
+.cell-song{display:flex;align-items:center;gap:10px}
+.mini-cover{width:38px;height:38px;border-radius:7px;object-fit:cover;background:var(--blue-800);flex:0 0 auto}
+.song-name{font-weight:600;color:var(--ink-900)}
+.song-artist{font-size:12px;color:var(--ink-500)}
+
+/* ---------------- Botones ---------------- */
+.btn{
+    display:inline-flex;align-items:center;gap:6px;
+    padding:8px 15px;border-radius:999px;border:1px solid transparent;
+    font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;
+    transition:background .15s,color .15s,border-color .15s;
+}
+.btn:hover{text-decoration:none}
+.btn-primary{background:var(--blue-500);color:#fff}
+.btn-primary:hover{background:var(--blue-600)}
+.btn-ghost{background:#fff;color:var(--blue-700);border-color:var(--blue-300)}
+.btn-ghost:hover{background:var(--blue-50)}
+.btn-danger{background:var(--err-bg);color:var(--err);border-color:#F7C1C1}
+.btn-danger:hover{background:#F7C1C1}
+.btn-sm{padding:5px 11px;font-size:12px}
+.btn-icon{width:30px;height:30px;padding:0;justify-content:center;border-radius:8px}
+.btn-icon svg{width:15px;height:15px}
+
+.actions{display:flex;gap:6px;flex-wrap:wrap}
+.actions form{display:inline}
+
+/* ---------------- Formularios ---------------- */
+.form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.form-grid .full{grid-column:1/-1}
+.field{display:flex;flex-direction:column;gap:5px}
+.field label{font-size:12.5px;font-weight:600;color:var(--ink-700)}
+.field input,.field select,.field textarea{
+    padding:9px 12px;border:1px solid var(--ink-300);border-radius:9px;
+    font-size:13.5px;font-family:inherit;background:#fff;color:var(--ink-900);
+}
+.field input:focus,.field select:focus,.field textarea:focus{
+    outline:2px solid var(--blue-300);border-color:var(--blue-400);
+}
+.field .hint{font-size:11.5px;color:var(--ink-500)}
+
+/* ---------------- Alertas ---------------- */
+.alert{padding:11px 15px;border-radius:10px;margin-bottom:15px;font-size:13.5px;border:1px solid transparent}
+.alert-ok{background:var(--ok-bg);color:var(--ok);border-color:#9FE1CB}
+.alert-error{background:var(--err-bg);color:var(--err);border-color:#F7C1C1}
+.alert-info{background:var(--blue-100);color:var(--blue-800);border-color:var(--blue-200)}
+
+/* ---------------- Tarjetas de catalogo ---------------- */
+.grid-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:16px}
+.tile{background:#fff;border:1px solid var(--ink-300);border-radius:var(--radius);padding:13px;text-align:center;transition:transform .15s,box-shadow .15s}
+.tile:hover{transform:translateY(-3px);box-shadow:var(--shadow-md)}
+.tile img{width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:9px;margin-bottom:10px;background:var(--blue-800)}
+.tile .t-name{font-weight:600;font-size:13.5px;color:var(--ink-900)}
+.tile .t-meta{font-size:12px;color:var(--ink-500)}
+
+/* ---------------- Login / registro ---------------- */
+.auth-wrap{min-height:100vh;display:grid;place-items:center;padding:24px;
+    background:linear-gradient(150deg,var(--blue-900) 0%,var(--blue-700) 55%,var(--blue-500) 100%)}
+.auth-card{width:100%;max-width:390px;background:#fff;border-radius:16px;padding:30px;box-shadow:0 18px 50px rgba(4,44,83,.32)}
+.auth-brand{display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:6px;color:var(--blue-900);font-weight:700;font-size:20px}
+.auth-brand .brand-mark{background:var(--blue-500);width:34px;height:34px}
+.auth-brand svg{width:21px;height:21px}
+.auth-tag{text-align:center;color:var(--ink-500);font-size:12.5px;margin-bottom:22px}
+.auth-card .field{margin-bottom:13px}
+.auth-card .btn{width:100%;justify-content:center;padding:11px}
+.auth-alt{text-align:center;margin-top:16px;font-size:13px;color:var(--ink-500)}
+.credentials{background:var(--blue-50);border:1px dashed var(--blue-300);border-radius:10px;padding:11px 13px;font-size:12px;color:var(--blue-800);margin-bottom:18px}
+.credentials b{font-weight:600}
+
+/* ---------------- Administracion ---------------- */
+.admin-nav{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
+.admin-nav a{
+    padding:8px 15px;border-radius:999px;background:#fff;border:1px solid var(--ink-300);
+    font-size:13px;font-weight:600;color:var(--ink-700);
+}
+.admin-nav a:hover{background:var(--blue-50);text-decoration:none}
+.admin-nav a.is-active{background:var(--blue-500);border-color:var(--blue-500);color:#fff}
+
+/* ---------------- Reproductor ---------------- */
+.playerbar{
+    position:fixed;left:0;right:0;bottom:0;height:var(--player-h);
+    background:var(--blue-900);color:#fff;z-index:40;
+    border-top:2px solid var(--blue-500);
+}
+.playerbar-inner{max-width:1180px;height:100%;margin:0 auto;padding:0 20px;
+    display:grid;grid-template-columns:minmax(190px,1fr) auto minmax(240px,1.3fr);align-items:center;gap:18px}
+.now-playing{display:flex;align-items:center;gap:11px;min-width:0}
+#npCover{width:46px;height:46px;border-radius:8px;object-fit:cover;background:var(--blue-800);flex:0 0 auto}
+.np-meta{min-width:0;display:flex;flex-direction:column;line-height:1.3}
+.np-title{font-size:13.5px;font-weight:600;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.np-artist{font-size:12px;color:var(--blue-300);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+.player-controls{display:flex;align-items:center;gap:9px}
+.pc-btn{background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.20);color:#fff;
+    width:38px;height:38px;border-radius:50%;cursor:pointer;display:grid;place-items:center;
+    transition:background .15s,transform .1s}
+.pc-btn:hover{background:rgba(255,255,255,.22)}
+.pc-btn:active{transform:scale(.94)}
+.pc-btn svg{width:17px;height:17px}
+.pc-main{width:46px;height:46px;background:var(--blue-500);border-color:var(--blue-500)}
+.pc-main:hover{background:var(--blue-400)}
+.pc-main svg{width:20px;height:20px}
+.pc-small{width:32px;height:32px}
+.pc-small svg{width:14px;height:14px}
+
+.player-progress{display:flex;align-items:center;gap:9px}
+.ptime{font-size:11.5px;color:var(--blue-300);font-variant-numeric:tabular-nums;min-width:34px;text-align:center}
+#seek{flex:1;-webkit-appearance:none;appearance:none;height:4px;border-radius:999px;background:rgba(255,255,255,.25);cursor:pointer}
+#seek::-webkit-slider-thumb{-webkit-appearance:none;width:12px;height:12px;border-radius:50%;background:var(--blue-400);border:2px solid #fff}
+#seek::-moz-range-thumb{width:12px;height:12px;border-radius:50%;background:var(--blue-400);border:2px solid #fff}
+
+/* ---------------- Estados vacios ---------------- */
+.empty{text-align:center;padding:44px 20px;color:var(--ink-500)}
+.empty svg{width:46px;height:46px;color:var(--blue-300);margin-bottom:10px}
+
+/* ---------------- Responsive ---------------- */
+@media (max-width:860px){
+    .playerbar-inner{grid-template-columns:1fr auto;gap:10px}
+    .player-progress{display:none}
+    .mainnav{overflow-x:auto}
+    .userinfo{display:none}
+}
+@media (max-width:640px){
+    .form-grid{grid-template-columns:1fr}
+    .topbar{flex-wrap:wrap;height:auto;padding:10px 14px;gap:10px}
+    .brand-text{display:none}
+}

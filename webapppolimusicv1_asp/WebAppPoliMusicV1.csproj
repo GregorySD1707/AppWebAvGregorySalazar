@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  WebAppPoliMusicV1.csproj
+
+  Visual Studio 2022/2026 ya no incluye una plantilla de "sitio web" para
+  ASP clasico. El formato soportado para abrir y depurar ASP clasico en
+  Visual Studio Community es un "Web Application Project" (WAP) con los
+  ProjectTypeGuids de Web. Desde aqui, F5 ejecuta el sitio con IIS Express
+  y los archivos .asp se editan y despliegan normalmente.
+
+  No hay codigo .NET que compilar: OutputType es Library y no se incluye
+  ningun archivo .cs. El proyecto solo describe el contenido del sitio.
+-->
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{7B2E4C51-9A3D-4F6B-8C1E-5D9A0F3B7E42}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>WebAppPoliMusicV1</RootNamespace>
+    <AssemblyName>WebAppPoliMusicV1</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <Use64BitIISExpress />
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+
+  <!-- ============ Configuracion y utilidades ============ -->
+  <ItemGroup>
+    <Content Include="web.config" />
+    <Content Include="config\AppConfig.asp" />
+    <Content Include="config\Connection.asp" />
+    <Content Include="includes\bootstrap.asp" />
+    <Content Include="includes\Security.asp" />
+    <Content Include="includes\header.asp" />
+    <Content Include="includes\footer.asp" />
+    <Content Include="includes\adminHeader.asp" />
+  </ItemGroup>
+
+  <!-- ============ Modelos, datos y servicios ============ -->
+  <ItemGroup>
+    <Content Include="models\Models.asp" />
+    <Content Include="dal\Db.asp" />
+    <Content Include="dal\UserRepository.asp" />
+    <Content Include="dal\SongRepository.asp" />
+    <Content Include="dal\AlbumRepository.asp" />
+    <Content Include="dal\ArtistRepository.asp" />
+    <Content Include="dal\PlaylistRepository.asp" />
+    <Content Include="services\AuthService.asp" />
+    <Content Include="services\CatalogService.asp" />
+  </ItemGroup>
+
+  <!-- ============ Paginas ============ -->
+  <ItemGroup>
+    <Content Include="login.asp" />
+    <Content Include="logout.asp" />
+    <Content Include="registro.asp" />
+    <Content Include="canciones.asp" />
+    <Content Include="albumes.asp" />
+    <Content Include="artistas.asp" />
+    <Content Include="playlists.asp" />
+  </ItemGroup>
+
+  <!-- ============ Administracion (CRUD) ============ -->
+  <ItemGroup>
+    <Content Include="admin\index.asp" />
+    <Content Include="admin\usuarios.asp" />
+    <Content Include="admin\canciones.asp" />
+    <Content Include="admin\artistas.asp" />
+    <Content Include="admin\albumes.asp" />
+    <Content Include="admin\playlists.asp" />
+  </ItemGroup>
+
+  <!-- ============ Recursos estaticos ============ -->
+  <ItemGroup>
+    <Content Include="css\styles.css" />
+    <Content Include="js\player.js" />
+    <Content Include="assets\**\*.*" />
+  </ItemGroup>
+
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>8899</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:8899/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+          <Use64BitIISExpress>True</Use64BitIISExpress>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>
