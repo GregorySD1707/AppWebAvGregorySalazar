@@ -68,23 +68,35 @@ Import-Module WebAdministration
 #  web.config de la aplicacion: hacerlo produce HTTP 501.
 #  Debe configurarse aqui, contra applicationHost.config.
 #
-#  Se fijan explicitamente los valores necesarios:
+#  Valores que se fijan:
+#    - enableParentPaths        = TRUE   (IMPRESCINDIBLE)
 #    - scriptErrorSentToBrowser = false  (no exponer errores al cliente)
-#    - enableParentPaths        = false  (la app usa includes "virtual=",
-#                                         no necesita rutas padre)
 #    - session.timeout          = 00:20:00
+#
+#  POR QUE enableParentPaths DEBE SER TRUE:
+#  La aplicacion usa includes con rutas relativas que suben un nivel,
+#  por ejemplo desde /admin:
+#      <!--#include file="../includes/bootstrap.asp"-->
+#  y dentro de /includes:
+#      <!--#include file="../config/AppConfig.asp"-->
+#  Classic ASP solo permite resolver esas rutas ".." cuando
+#  enableParentPaths esta habilitado. Si esta en false, IIS devuelve
+#  HTTP 500 en todas las paginas .asp.
+#
+#  (La alternativa "virtual=/ruta" NO sirve aqui: se resuelve desde la
+#   raiz del SITIO y la aplicacion se publica en un subdirectorio.)
 # ---------------------------------------------------------------------
 Write-Host "Configurando Classic ASP a nivel de servidor..." -ForegroundColor Cyan
 try {
     Set-WebConfigurationProperty -PSPath "MACHINE/WEBROOT/APPHOST" `
-        -Filter "system.webServer/asp" -Name "scriptErrorSentToBrowser" -Value "False"
+        -Filter "system.webServer/asp" -Name "enableParentPaths" -Value "True"
     Set-WebConfigurationProperty -PSPath "MACHINE/WEBROOT/APPHOST" `
-        -Filter "system.webServer/asp" -Name "enableParentPaths" -Value "False"
+        -Filter "system.webServer/asp" -Name "scriptErrorSentToBrowser" -Value "False"
     Set-WebConfigurationProperty -PSPath "MACHINE/WEBROOT/APPHOST" `
         -Filter "system.webServer/asp/session" -Name "allowSessionState" -Value "True"
     Set-WebConfigurationProperty -PSPath "MACHINE/WEBROOT/APPHOST" `
         -Filter "system.webServer/asp/session" -Name "timeout" -Value "00:20:00"
-    Write-Host "Classic ASP configurado (scriptErrorSentToBrowser=false, enableParentPaths=false)." -ForegroundColor Green
+    Write-Host "Classic ASP configurado (enableParentPaths=True, scriptErrorSentToBrowser=False)." -ForegroundColor Green
 } catch {
     Write-Host "Aviso: no se pudo fijar toda la configuracion de ASP: $($_.Exception.Message)" -ForegroundColor Yellow
     Write-Host "       La aplicacion funciona igual con los valores por defecto de IIS." -ForegroundColor Yellow

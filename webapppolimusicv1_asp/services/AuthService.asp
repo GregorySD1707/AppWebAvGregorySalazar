@@ -63,7 +63,7 @@ End Function
 ' correcta tanto desde la raiz como desde subcarpetas como /admin.
 Sub RequireLogin()
     If Not AuthIsLogged() Then
-        Response.Redirect "/login.asp?msg=session"
+        Response.Redirect APP_BASE & "/login.asp?msg=session"
     End If
 End Sub
 
@@ -71,11 +71,11 @@ End Sub
 ' devuelve a la pantalla principal (no se le muestra el CRUD).
 Sub RequireAdmin()
     If Not AuthIsLogged() Then
-        Response.Redirect "/login.asp?msg=session"
+        Response.Redirect APP_BASE & "/login.asp?msg=session"
         Exit Sub
     End If
     If Not AuthIsAdmin() Then
-        Response.Redirect "/canciones.asp?msg=forbidden"
+        Response.Redirect APP_BASE & "/canciones.asp?msg=forbidden"
     End If
 End Sub
 

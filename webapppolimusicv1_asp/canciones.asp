@@ -13,7 +13,7 @@
 '    - El CRUD solo aparece para el rol administrador.
 ' =====================================================================
 %>
-<!--#include virtual="/includes/bootstrap.asp"-->
+<!--#include file="includes/bootstrap.asp"-->
 <%
 RequireLogin
 
@@ -32,7 +32,7 @@ Dim PageTitle, ActiveMenu
 PageTitle  = "Canciones"
 ActiveMenu = "canciones"
 %>
-<!--#include virtual="/includes/header.asp"-->
+<!--#include file="includes/header.asp"-->
 <%
 ' --- Construccion de la playlist para el reproductor (JS) -----------
 Dim jsQueue, k, s, first
@@ -176,4 +176,4 @@ Response.Write "<script>window.__POLI_QUEUE = " & jsQueue & ";</script>"
 })();
 </script>
 
-<!--#include virtual="/includes/footer.asp"-->
+<!--#include file="includes/footer.asp"-->

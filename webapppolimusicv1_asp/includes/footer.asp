@@ -9,7 +9,7 @@
 <div class="playerbar" id="playerBar">
     <div class="playerbar-inner">
         <div class="now-playing">
-            <img id="npCover" src="/assets/albumImages/album1.png" alt="">
+            <img id="npCover" src="<%=APP_BASE%>/assets/albumImages/album1.png" alt="">
             <div class="np-meta">
                 <span id="npTitle" class="np-title">Sin reproduccion</span>
                 <span id="npArtist" class="np-artist">Selecciona una cancion</span>
@@ -41,6 +41,6 @@
     <audio id="audioPlayer" preload="metadata"></audio>
 </div>
 
-<script src="/js/player.js"></script>
+<script src="<%=APP_BASE%>/js/player.js"></script>
 </body>
 </html>

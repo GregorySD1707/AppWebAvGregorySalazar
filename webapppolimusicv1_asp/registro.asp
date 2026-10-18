@@ -5,7 +5,7 @@
 '  Todo usuario registrado desde aqui obtiene el rol normal.
 ' =====================================================================
 %>
-<!--#include virtual="/includes/bootstrap.asp"-->
+<!--#include file="includes/bootstrap.asp"-->
 <%
 Dim username, password, confirm, email, errorMsg, okMsg
 

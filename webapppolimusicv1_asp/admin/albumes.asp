@@ -4,7 +4,7 @@
 '  admin/albumes.asp  -  CRUD de Albumes (solo administrador).
 ' =====================================================================
 %>
-<!--#include virtual="/includes/bootstrap.asp"-->
+<!--#include file="../includes/bootstrap.asp"-->
 <%
 RequireAdmin
 
@@ -55,7 +55,7 @@ End If
 Dim albums, alb
 Set albums = CatalogAlbumsForView()
 %>
-<!--#include virtual="/includes/adminHeader.asp"-->
+<!--#include file="../includes/adminHeader.asp"-->
 <div class="page-head">
     <div>
         <h1>Albumes</h1>
@@ -136,4 +136,4 @@ Set albums = CatalogAlbumsForView()
     </table>
 </div>
 
-<!--#include virtual="/includes/footer.asp"-->
+<!--#include file="../includes/footer.asp"-->

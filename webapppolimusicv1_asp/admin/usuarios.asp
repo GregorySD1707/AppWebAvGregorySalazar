@@ -4,7 +4,7 @@
 '  admin/usuarios.asp  -  CRUD de Usuarios (solo administrador).
 ' =====================================================================
 %>
-<!--#include virtual="/includes/bootstrap.asp"-->
+<!--#include file="../includes/bootstrap.asp"-->
 <%
 RequireAdmin
 
@@ -71,7 +71,7 @@ End If
 Dim users, u
 Set users = UserListAll()
 %>
-<!--#include virtual="/includes/adminHeader.asp"-->
+<!--#include file="../includes/adminHeader.asp"-->
 <div class="page-head">
     <div>
         <h1>Usuarios</h1>
@@ -175,4 +175,4 @@ Set users = UserListAll()
     </table>
 </div>
 
-<!--#include virtual="/includes/footer.asp"-->
+<!--#include file="../includes/footer.asp"-->

@@ -17,7 +17,7 @@ curActive = ActiveMenu
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title><%=HtmlEncode(PageTitle)%> &middot; <%=APP_NAME%></title>
-    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="<%=APP_BASE%>/css/styles.css">
 </head>
 <body>
 <header class="topbar">

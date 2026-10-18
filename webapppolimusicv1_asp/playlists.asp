@@ -9,7 +9,7 @@
 '                  actualizar y eliminar sus propias playlists).
 ' =====================================================================
 %>
-<!--#include virtual="/includes/bootstrap.asp"-->
+<!--#include file="includes/bootstrap.asp"-->
 <%
 RequireLogin
 
@@ -81,7 +81,7 @@ Set playlists = CatalogPlaylistsForView(AuthUserId(), AuthIsAdmin())
 PageTitle  = "Playlists"
 ActiveMenu = "playlists"
 %>
-<!--#include virtual="/includes/header.asp"-->
+<!--#include file="includes/header.asp"-->
 <div class="page-head">
     <div>
         <h1>Mis Playlists</h1>
@@ -172,4 +172,4 @@ ActiveMenu = "playlists"
     </table>
 </div>
 
-<!--#include virtual="/includes/footer.asp"-->
+<!--#include file="includes/footer.asp"-->

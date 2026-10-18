@@ -4,7 +4,7 @@
 '  albumes.asp  -  Consulta de albumes (disponible para ambos roles).
 ' =====================================================================
 %>
-<!--#include virtual="/includes/bootstrap.asp"-->
+<!--#include file="includes/bootstrap.asp"-->
 <%
 RequireLogin
 
@@ -14,7 +14,7 @@ Set albums = CatalogAlbumsForView()
 PageTitle  = "Albumes"
 ActiveMenu = "albumes"
 %>
-<!--#include virtual="/includes/header.asp"-->
+<!--#include file="includes/header.asp"-->
 <div class="page-head">
     <div>
         <h1>Albumes</h1>
@@ -39,4 +39,4 @@ ActiveMenu = "albumes"
 </div>
 <% End If %>
 
-<!--#include virtual="/includes/footer.asp"-->
+<!--#include file="includes/footer.asp"-->

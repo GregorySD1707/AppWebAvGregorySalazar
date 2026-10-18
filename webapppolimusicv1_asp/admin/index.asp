@@ -4,7 +4,7 @@
 '  admin/index.asp  -  Panel de administracion (solo rol admin).
 ' =====================================================================
 %>
-<!--#include virtual="/includes/bootstrap.asp"-->
+<!--#include file="../includes/bootstrap.asp"-->
 <%
 RequireAdmin
 
@@ -20,7 +20,7 @@ cArtists   = DbScalar("SELECT COUNT(*) FROM TBL_ARTIST", Empty)
 cAlbums    = DbScalar("SELECT COUNT(*) FROM TBL_ALBUM", Empty)
 cPlaylists = DbScalar("SELECT COUNT(*) FROM TBL_PLAYLIST", Empty)
 %>
-<!--#include virtual="/includes/adminHeader.asp"-->
+<!--#include file="../includes/adminHeader.asp"-->
 <div class="page-head">
     <div>
         <h1>Panel de administracion</h1>
@@ -46,4 +46,4 @@ cPlaylists = DbScalar("SELECT COUNT(*) FROM TBL_PLAYLIST", Empty)
     </a>
 </div>
 
-<!--#include virtual="/includes/footer.asp"-->
+<!--#include file="../includes/footer.asp"-->

@@ -6,12 +6,12 @@
 '  La pantalla principal (canciones.asp) lee ese nombre para el saludo.
 ' =====================================================================
 %>
-<!--#include virtual="/includes/bootstrap.asp"-->
+<!--#include file="includes/bootstrap.asp"-->
 <%
 Dim username, password, errorMsg, okMsg
 
 If AuthIsLogged() Then Response.Redirect "canciones.asp"
-
+    
 ' Si venimos de una redireccion por sesion expirada, avisamos.
 If Request.QueryString("msg") = "session" Then
     errorMsg = "Tu sesion expiro. Inicia sesion nuevamente."
@@ -52,7 +52,7 @@ End If
             </span>
             <%=APP_NAME%>
         </div>
-        <p class="auth-tag">Tu musica, en azul.</p>
+        <p class="auth-tag">gregory.salazar</p>
 
         <%=AlertHtml(errorMsg, "error")%>
         <%=AlertHtml(okMsg, "ok")%>

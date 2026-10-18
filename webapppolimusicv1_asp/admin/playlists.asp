@@ -5,7 +5,7 @@
 '  El administrador ve y administra las playlists de TODOS los usuarios.
 ' =====================================================================
 %>
-<!--#include virtual="/includes/bootstrap.asp"-->
+<!--#include file="../includes/bootstrap.asp"-->
 <%
 RequireAdmin
 
@@ -65,7 +65,7 @@ Dim playlists, pl, users, u
 Set playlists = CatalogPlaylistsForView(AuthUserId(), True)
 Set users     = UserListAll()
 %>
-<!--#include virtual="/includes/adminHeader.asp"-->
+<!--#include file="../includes/adminHeader.asp"-->
 <div class="page-head">
     <div>
         <h1>Playlists</h1>
@@ -160,4 +160,4 @@ Set users     = UserListAll()
     </table>
 </div>
 
-<!--#include virtual="/includes/footer.asp"-->
+<!--#include file="../includes/footer.asp"-->

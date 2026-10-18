@@ -4,7 +4,7 @@
 '  artistas.asp  -  Consulta de artistas (disponible para ambos roles).
 ' =====================================================================
 %>
-<!--#include virtual="/includes/bootstrap.asp"-->
+<!--#include file="includes/bootstrap.asp"-->
 <%
 RequireLogin
 
@@ -14,7 +14,7 @@ Set artists = CatalogArtistsForView()
 PageTitle  = "Artistas"
 ActiveMenu = "artistas"
 %>
-<!--#include virtual="/includes/header.asp"-->
+<!--#include file="includes/header.asp"-->
 <div class="page-head">
     <div>
         <h1>Artistas</h1>
@@ -38,4 +38,4 @@ ActiveMenu = "artistas"
 </div>
 <% End If %>
 
-<!--#include virtual="/includes/footer.asp"-->
+<!--#include file="includes/footer.asp"-->

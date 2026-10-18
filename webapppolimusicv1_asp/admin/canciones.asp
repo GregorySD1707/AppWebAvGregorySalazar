@@ -5,7 +5,7 @@
 '  Administra tambien las relaciones TBL_PLAYER y TBL_TRACKLIST.
 ' =====================================================================
 %>
-<!--#include virtual="/includes/bootstrap.asp"-->
+<!--#include file="../includes/bootstrap.asp"-->
 <%
 RequireAdmin
 
@@ -63,7 +63,7 @@ End If
 Dim songs, s
 Set songs = CatalogSongsForView()
 %>
-<!--#include virtual="/includes/adminHeader.asp"-->
+<!--#include file="../includes/adminHeader.asp"-->
 <div class="page-head">
     <div>
         <h1>Canciones</h1>
@@ -155,4 +155,4 @@ Set songs = CatalogSongsForView()
     </table>
 </div>
 
-<!--#include virtual="/includes/footer.asp"-->
+<!--#include file="../includes/footer.asp"-->

@@ -5,7 +5,7 @@
 '  Recibe: PageTitle, AdminMenu
 ' =====================================================================
 %>
-<!--#include virtual="/includes/header.asp"-->
+<!--#include file="../includes/header.asp"-->
 <div class="admin-nav">
     <a href="<%=RootPath%>admin/index.asp"      class="<%=IIf(AdminMenu="inicio","is-active","")%>">Inicio</a>
     <a href="<%=RootPath%>admin/usuarios.asp"   class="<%=IIf(AdminMenu="usuarios","is-active","")%>">Usuarios</a>
